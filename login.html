@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login y Registro</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 360px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .form {
+      display: none;
+    }
+
+    .form.active {
+      display: block;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+      background: #0056b3;
+    }
+
+    .toggle-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .toggle-link a {
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .toggle-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Login -->
+    <!-- Login -->
+<div id="loginForm" class="form active">
+    <h2>Iniciar Sesión</h2>
+    <form id="loginFormTag"> <!-- Agregamos el ID -->
+      <input type="text" name="username" placeholder="Usuario" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <input type="submit" value="Entrar">
+    </form>
+    <div class="toggle-link">
+      ¿No tienes cuenta? <a onclick="toggleForms()">Regístrate</a>
+    </div>
+  </div>
+  
+
+    <!-- Registro -->
+    <div id="registerForm" class="form">
+      <h2>Registrarse</h2>
+      <form action="/registro" method="POST">
+        <input type="text" name="username" placeholder="Usuario" required>
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <input type="submit" value="Crear cuenta">
+      </form>
+      <div class="toggle-link">
+        ¿Ya tienes cuenta? <a onclick="toggleForms()">Inicia sesión</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleForms() {
+      const loginForm = document.getElementById("loginForm");
+      const registerForm = document.getElementById("registerForm");
+  
+      loginForm.classList.toggle("active");
+      registerForm.classList.toggle("active");
+    }
+  
+    // Redirigir después de hacer "login" y guardar el nombre
+    document.getElementById("loginFormTag").addEventListener("submit", function(e) {
+      e.preventDefault(); // Evita que se recargue la página
+  
+      const username = document.querySelector('input[name="username"]').value;
+  
+      // Guardamos el nombre en el almacenamiento local
+      localStorage.setItem("username", username);
+  
+      // Redirigir a la página principal
+      window.location.href = "indexfe.html";
+    });
+  </script>
+  
+  
+
+</body>
+</html>

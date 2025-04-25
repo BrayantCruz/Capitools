@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Productos por Categoría</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #contenedor-productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .producto {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .producto:hover {
+      transform: translateY(-5px);
+    }
+
+    .producto img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .producto h3 {
+      margin: 10px 0 5px;
+    }
+
+    .producto p {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .boton-carrito {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .boton-carrito:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="titulo-categoria">Productos</h2>
+  <div id="contenedor-productos"></div>
+
+  <script>
+    const productos = {
+      mangueras: [
+        { nombre: "Manguera negra 1/2 Sencilla", precio: "$5 m", imagen: "Imagenes/MangueraSencilla.jpg" },
+        { nombre: "Manguera negra 1/2 Reforzada", precio: "$8 m", imagen: "Imagenes/Manguerareforzada.jpg" },
+        { nombre: "Manguera negra 3/4", precio: "$8 m", imagen: "Imagenes/MangueraNegra.jpg" },
+        { nombre: "Manguera negra 1", precio: "$10 m", imagen: "Imagenes/MangueraNegra1.jpg" },
+        { nombre: "Manguera negra 1, 1/4", precio: "$17 m", imagen: "Imagenes/Mangueranegra 1,4.jpg" },
+        { nombre: "Manguera negra 2", precio: "$30 m", imagen: "Imagenes/Manguera2.jpg" }
+      ],
+      flexometros: [
+        { nombre: "Flexómetro 3m", precio: "$35", imagen: "Imagenes/flexometro3m.jpg" },
+        { nombre: "Flexómetro 5m", precio: "$72", imagen: "Imagenes/flexometro5m.jpg" },
+        { nombre: "Flexómetro 8m", precio: "$105", imagen: "Imagenes/flexometro8m.jpg" }
+      ],
+      Plomada: [
+        { nombre: "Plomada Paño 2", precio: "$116", imagen: "Imagenes/plomada paño 2.jpg" },
+        { nombre: "Plomada Paño 3", precio: "$137", imagen: "Imagenes/plomada paño 3.jpg" },
+        { nombre: "Plomada de punto 8oz", precio: "$180", imagen: "Imagenes/plomada de punto8oz.jpg" },
+        { nombre: "Plomada de punto 12oz", precio: "$240", imagen: "Imagenes/plomada de punto12oz.jpg" }
+      ],
+      TuboPVC: [
+        { nombre: "tubo pvc 1, 1/2", precio: "$22 ", imagen: "Imagenes/Tubo1,2.jpg" },
+        { nombre: "Tubo pvc 2", precio: "$24", imagen: "Imagenes/Tubo2.jpg" },
+        { nombre: "Tubo pvc 2, 1/2", precio: "$32", imagen: "Imagenes/Tubo2,2.jpg" },
+        { nombre: "Tubo pvc 4", precio: "$48", imagen: "Imagenes/Tubo4.jpg" },
+        { nombre: "Tubo pvc 6", precio: "$120", imagen: "Imagenes/Tubo6.jpg" },
+        { nombre: "Tubo cpvc 1/2", precio: "$15", imagen: "Imagenes/tubo cpvc 1,2.jpg" },
+        { nombre: "Tubo cpvc 3/4", precio: "$22", imagen: "Imagenes/tubo cpvc 3,4.jpg" },
+        { nombre: "Tubo cpvc 1", precio: "$33", imagen: "Imagenes/tubo cpvc 1.jpg" },
+        { nombre: "Tubo cpvc 1, 1/4", precio: "$52", imagen: "Imagenes/tubo cpvc 1,4.jpg" }
+      ],
+      CoplePVC: [
+        { nombre: "Cople ins. 1/2", precio: "$10 ", imagen: "Imagenes/Cople1,2.jpg" },
+        { nombre: "Cople ins 3/4", precio: "$12", imagen: "Imagenes/Cople3,4.jpg" },
+        { nombre: "Cople ins 1", precio: "$18", imagen: "Imagenes/Cople1.jpg" },
+        { nombre: "cople ins 1, 1/4", precio: "$25", imagen: "Imagenes/Cople1,4.jpg" },
+        { nombre: "Cople ins 1, 1/2", precio: "$32", imagen: "Imagenes/Cople1,1,2.jpg" },
+        { nombre: "Cople ins 2", precio: "$35", imagen: "Imagenes/Cople2.jpg" }
+      ],
+      CodoPVC: [
+        { nombre: "Codo ins 1/2 ", precio: "$11 ", imagen: "Imagenes/Codo1,2.jpg" },
+        { nombre: "Codo ins 3/4", precio: "$12", imagen: "Imagenes/Codo3,4.jpg" },
+        { nombre: "Codo ins 1", precio: "$18", imagen: "Imagenes/Cople1.jpg" },
+        { nombre: "Codo ins 1, 1/2", precio: "$42", imagen: "Imagenes/Codo1,1,2.jpg" },
+        { nombre: "Codo ins 1, 1/4", precio: "$53", imagen: "Imagenes/Codo1,1,4.jpg" },
+        { nombre: "Codo ins 2", precio: "$56", imagen: "Imagenes/Codo2.jpg" }
+      ],
+      CodoTee: [
+        { nombre: "Tee ins 1/2 ", precio: "$17 ", imagen: "Imagenes/CodoTee1,2.jpg" },
+        { nombre: "Tee ins 3/4 ", precio: "$20", imagen: "Imagenes/CodoTee3,4.jpg" },
+        { nombre: "Tee ins 1", precio: "$27", imagen: "Imagenes/CodoTee1.jpg" },
+        { nombre: "Tee ins 1, 1/2", precio: "$69", imagen: "Imagenes/CodoTee1,1,2_.jpg" },
+        { nombre: "tee ins 2", precio: "$70", imagen: "Imagenes/CodoTee2.jpg" },
+      ],
+      CodoYee: [
+        { nombre: "Yee ins 1/2 ", precio: "$12 ", imagen: "Imagenes/CodoYee1,2.jpg" },
+        { nombre: "Yee ins 3/4 ", precio: "$15", imagen: "Imagenes/CodoYee3,4.jpg" },
+        { nombre: "Yee ins 1", precio: "$20", imagen: "Imagenes/CodoYee1.jpg" },
+      ],
+      MangueraElectroducto: [
+        { nombre: "Manguera electroducto 1/2  ", precio: "$4.5 m ", imagen: "Imagenes/manguera electroducto1,2 .jpg" },
+        { nombre: "Manguera electroducto 3/4", precio: "$6 m", imagen: "Imagenes/manguera electroducto 3,4.jpg" },
+        { nombre: "Manguera electroducto 1", precio: "$11 m", imagen: "Imagenes/manguera electroducto 1.jpg" },
+      ],
+      Cables: [
+        { nombre: "Cable 1x12   ", precio: "$14 m ", imagen: "Imagenes/cable 1,12 .jpg" },
+        { nombre: "Cable 1x14", precio: "$10 m", imagen: "Imagenes/cable 1,14.jpg" },
+        { nombre: "Cable 1x10 ", precio: "$22 m", imagen: "Imagenes/cable 1,10 .jpg" },
+        { nombre: "Cable 1x8", precio: "$33  m", imagen: "Imagenes/cable 1,8.jpg" },
+        { nombre: "Cable 2x18", precio: "$10 m", imagen: "Imagenes/cable 2,18.jpg" },
+        { nombre: "Cable 2x16", precio: "$16 m", imagen: "Imagenes/cable 2,16.jpg" },
+        { nombre: "Cable 2x14 ", precio: "$21 m", imagen: "Imagenes/cable 2,14.jpg" },
+        { nombre: "Cable 2x12", precio: "$30 m", imagen: "Imagenes/cable 2,12.jpg" },
+      ],
+      Martillo: [
+        { nombre: "Martillo mango madera", precio: "$110 ", imagen: "Imagenes/martillo mango madera.jpg" },
+        { nombre: "Martillo mango fierro", precio: "$130", imagen: "Imagenes/martillo mango fierro.jpg" },
+        { nombre: "Martillo mango fibra de vidrio", precio: "$165 ", imagen: "Imagenes/martillo mango fibra de vidrio.jpg" },
+      ],
+      Serrucho: [
+        { nombre: "Serrucho 18", precio: "$130 ", imagen: "Imagenes/serrucho 18.jpg" },
+        { nombre: "Serrucho 20", precio: "$133", imagen: "Imagenes/serrucho 20.jpg" },
+        { nombre: "Serrucho 22", precio: "$195 ", imagen: "Imagenes/serrucho 22.jpg" },
+        { nombre: "Serrucho 24", precio: "$210 ", imagen: "Imagenes/serrucho 24.jpg" },
+      ],
+      Clavos: [
+        { nombre: "Clavo p/concreto 1", precio: "$90 ", imagen: "Imagenes/clavo pconcreto 1.jpg" },
+        { nombre: "Clavo p/ concreto 1, 1/2", precio: "$90", imagen: "Imagenes/clavo pconcreto 1,1,2.jpg" },
+        { nombre: "Clavo p/ concreto 2", precio: "$90 ", imagen: "Imagenes/clavo pconcreto 2.jpg" },
+        { nombre: "Clavo p/ concreto 2, 1/2", precio: "$90 ", imagen: "Imagenes/clavo pconcreto 2,1,2.jpg" },
+        { nombre: "Clavo estandar 1 ", precio: "$75 ", imagen: "Imagenes/clavo estandar 1 .jpg" },
+        { nombre: "clavo estandar 1, 1/2 ", precio: "$82", imagen: "Imagenes/clavo estandar 1,1,2 .jpg" },
+        { nombre: "Clavo estandar 2", precio: "$40 ", imagen: "Imagenes/clavo estandar 2.jpg" },
+        { nombre: "Clavo estandar 2, 1/2", precio: "$40 ", imagen: "Imagenes/clavo estandar 2,1,2.jpg" },
+      ],
+      TornilloCoche: [
+        { nombre: "Tornillo coche 1/2", precio: "$1.50 ", imagen: "Imagenes/tornillo coche 1,2.jpg" },
+        { nombre: "Tornillo coche 1", precio: "$1.50", imagen: "Imagenes/tornillo coche 1.jpg" },
+        { nombre: "Tornillo coche 1, 1/2", precio: "$1.50 ", imagen: "Imagenes/tornillo coche 1, 1,2.jpg" },
+        { nombre: "Tornillo coche 2", precio: "$1.50 ", imagen: "Imagenes/tornillo coche 2.jpg" },
+        { nombre: "Tornillo coche 2, 1/2 ", precio: "$2 ", imagen: "Imagenes/tornillo coche 2, 1,2.jpg" },
+        { nombre: "Tornillo coche 3 ", precio: "$2", imagen: "Imagenes/tornillo coche 3.jpg" },
+        { nombre: "Tornillo coche 3, 1/2", precio: "$2 ", imagen: "Imagenes/tornillo coche 3, 1,2.jpg" },
+        { nombre: "Tornillo coche 4", precio: "$2 ", imagen: "Imagenes/tornillo coche 4.jpg" },
+      ],
+      Tuerca: [
+        { nombre: "Tuerca hexagonal 1/2", precio: "$1 ", imagen: "Imagenes/tuerca hexagonal 1,2.jpg" },
+        { nombre: "Tuerca hexagonal 5/16", precio: "$1.50", imagen: "Imagenes/tuerca hexagonal 5,16.jpg" },
+        { nombre: "Tuerca hexagonal 3/8", precio: "$2 ", imagen: "Imagenes/tuerca hexagonal 3,8.jpg" },
+        { nombre: "Tuerca hexagonal 1", precio: "$3 ", imagen: "Imagenes/tuerca hexagonal 1.jpg" },
+      ],
+    };
+
+
+    // Obtener categoría desde URL
+    const params = new URLSearchParams(window.location.search);
+    const categoria = params.get("categoria");
+
+    const contenedor = document.getElementById("contenedor-productos");
+    const titulo = document.getElementById("titulo-categoria");
+
+    if (productos[categoria]) {
+      titulo.innerText = `Productos en la categoría: ${categoria}`;
+      productos[categoria].forEach(producto => {
+        contenedor.innerHTML += `
+          <div class="producto">
+            <img src="${producto.imagen}" alt="${producto.nombre}">
+            <h3>${producto.nombre}</h3>
+            <p>${producto.precio}</p>
+            <button class="boton-carrito" data-precio="${parseFloat(producto.precio.replace('$', '').trim())}">Añadir al carrito</button>
+          </div>
+        `;
+      });
+    } else {
+      titulo.innerText = "Categoría no encontrada";
+      contenedor.innerHTML = "<p>No se encontraron productos para esta categoría.</p>";
+    }
+
+    // Función para agregar al carrito
+    function agregarProducto(precio) {
+      let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+      let cartTotal = parseFloat(localStorage.getItem('cartTotal')) || 0;
+
+      cartCount++;
+      cartTotal += precio;
+
+      localStorage.setItem('cartCount', cartCount);
+      localStorage.setItem('cartTotal', cartTotal.toFixed(2));
+
+      alert("Producto añadido al carrito.");
+    }
+
+    // Eventos
+    window.addEventListener('DOMContentLoaded', () => {
+      // Inicializa carrito si es necesario
+      if (!localStorage.getItem('cartCount')) {
+        localStorage.setItem('cartCount', '0');
+        localStorage.setItem('cartTotal', '0');
+      }
+
+      // Los productos se cargan dinámicamente, por lo que necesitamos asegurarnos de que los botones existan
+      const botonesCarrito = document.querySelectorAll('.boton-carrito');
+      botonesCarrito.forEach(boton => {
+        boton.addEventListener('click', () => {
+          const precio = parseFloat(boton.getAttribute('data-precio'));
+          agregarProducto(precio);
+        });
+      });
+    });
+  </script>
+ 
+
+</body>
+</html>

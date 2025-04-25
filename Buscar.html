@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados de Búsqueda</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
+    h2 { text-align: center; margin-bottom: 20px; }
+    .resultado {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .resultado img { max-width: 100px; margin-right: 15px; vertical-align: middle; }
+    .producto-item { display: flex; align-items: center; margin-bottom: 10px; }
+    .producto-info { display: flex; flex-direction: column; }
+    .producto-info strong { font-size: 1.1em; }
+  </style>
+</head>
+<body>
+  <h2 id="titulo">Resultados de Búsqueda</h2>
+  <div id="contenedor-resultados"></div>
+
+  <script>
+    const productos = {
+      CementoBlanco: {
+        titulo: "Cemento Blanco 20kg",
+        imagen: "Imagenes/CementoBlanco.jpg",
+        descripcion: "Ideal para acabados finos y resistencias superiores.",
+        precio: 140.00
+      },
+      Pilas: {
+        titulo: "Pilas AA Duracell",
+        imagen: "Imagenes/Pilas.jpg",
+        descripcion: "Pilas alcalinas de larga duración para todo tipo de dispositivos.",
+        precio: 60.00
+      },
+      Thiner: {
+        titulo: "Thiner Industrial 1L",
+        imagen: "Imagenes/Thiner.jpg",
+        descripcion: "Disolvente para pinturas y limpieza de herramientas.",
+        precio: 85.00
+      }
+    };
+
+    const categorias = {
+      TuboPVC: [
+        { nombre: "Tubo pvc 2", precio: "$24", imagen: "Imagenes/Tubo2.jpg" },
+        { nombre: "Tubo pvc 4", precio: "$48", imagen: "Imagenes/Tubo4.jpg" }
+      ],
+      Cables: [
+        { nombre: "Cable eléctrico 2.5mm", precio: "$30", imagen: "Imagenes/Cable1.jpg" }
+      ]
+    };
+
+    function normalizar(texto) {
+      return texto.normalize("NFD").replace(/\u0300-\u036f/g, "").toLowerCase();
+    }
+
+    function mostrarResultados() {
+      const params = new URLSearchParams(window.location.search);
+      const termino = normalizar(params.get("q"));
+      const contenedor = document.getElementById("contenedor-resultados");
+
+      // Buscar producto exacto
+      const productoClave = Object.keys(productos).find(k => normalizar(k) === termino);
+      if (productoClave) {
+        const p = productos[productoClave];
+        contenedor.innerHTML += `
+          <div class="resultado">
+            <div class="producto-item">
+              <img src="${p.imagen}" alt="${p.titulo}">
+              <div class="producto-info">
+                <strong>${p.titulo}</strong>
+                <span>${p.descripcion}</span>
+                <span><strong>Precio:</strong> $${p.precio.toFixed(2)} MXN</span>
+              </div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Buscar en categorías
+      const categoriaClave = Object.keys(categorias).find(k => normalizar(k) === termino);
+      if (categoriaClave) {
+        categorias[categoriaClave].forEach(item => {
+          contenedor.innerHTML += `
+            <div class="resultado">
+              <div class="producto-item">
+                <img src="${item.imagen}" alt="${item.nombre}">
+                <div class="producto-info">
+                  <strong>${item.nombre}</strong>
+                  <span><strong>Precio:</strong> ${item.precio}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        return;
+      }
+
+      document.getElementById("titulo").textContent = "No se encontraron resultados para tu búsqueda.";
+    }
+
+    document.addEventListener("DOMContentLoaded", mostrarResultados);
+  </script>
+</body>
+</html>
